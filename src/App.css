@@ -1,0 +1,23 @@
+/* px-4 py-8 */
+.outer-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
+
+/* mx-auto flex max-w-5xl flex-col */
+.search-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* pb-4 text-center text-3xl font-bold text-red-700 */
+.search-title {
+  padding-bottom: 1rem;
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 700;
+}
