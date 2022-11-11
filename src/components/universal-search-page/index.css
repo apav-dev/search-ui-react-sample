@@ -1,0 +1,14 @@
+/* mx-auto flex max-w-5xl flex-col */
+.search-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* grid with 3 columns and space in betweeen each */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}

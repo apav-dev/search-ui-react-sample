@@ -1,27 +1,18 @@
 import "./App.css";
-import {
-  ResultsCount,
-  SearchBar,
-  SpellCheck,
-  StandardCard,
-  VerticalResults,
-} from "@yext/search-ui-react";
+import { PageRouter } from "./PageRouter";
 
 function App() {
   return (
     <div className="outer-container">
-      <div className="inner-container">
-        <h1 className="search-title">Search UI React</h1>
-        <SearchBar placeholder="Search for products" />
-        <SpellCheck />
-        <ResultsCount />
-        <VerticalResults
-          CardComponent={StandardCard}
-          displayAllOnNoResults={false}
-        />
-      </div>
+      <h1 className="search-title">Search UI React</h1>
+      <PageRouter />
     </div>
   );
 }
 
 export default App;
+
+// Notes
+// 1. The issue where the background color was appearing black was due to the styles in main.css. There was a dark background color set on the body element and I removed most of the styles there.
+// 2. I did not set a vertical key in the in the HeadlessConfig in main.tsx because I want to use universal search when you land on the home page.
+// 3. I ran yext types generate search src/types --experienceKey test-kering to generated the types for the search experience.

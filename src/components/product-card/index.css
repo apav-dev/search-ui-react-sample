@@ -1,0 +1,32 @@
+/* flex flex-col items-center border px-4 py-4 */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #103e7b;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.card-image {
+  /* w-24 */
+  width: 24rem;
+}
+
+.product-title {
+  /* text-align: center; */
+  font-size: 2rem;
+  font-weight: 700;
+  /* space between lines of text */
+  line-height: 1.5;
+}
+
+/* div that has title on top of description */
+.product-info {
+  /* flex flex-col items-center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

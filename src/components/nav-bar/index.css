@@ -1,0 +1,16 @@
+.nav-bar {
+  /* flex flex-row */
+  display: flex;
+  flex-direction: row;
+}
+
+/* convert tailwind classes to css: text-blue-500 hover:underline p-2 */
+.link {
+  color: #4299e1;
+  padding: 0.5rem;
+}
+
+/* when the .link class is hovered, underline the text */
+.link:hover {
+  text-decoration: underline;
+}
