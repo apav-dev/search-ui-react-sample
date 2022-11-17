@@ -1,9 +1,11 @@
+import { useSearchState } from "@yext/search-headless-react";
 import {
   CardComponent,
   ResultsCount,
   SearchBar,
   SpellCheck,
   StandardCard,
+  StandardFacets,
   VerticalResults,
 } from "@yext/search-ui-react";
 import { useSearchParams } from "react-router-dom";
@@ -29,6 +31,8 @@ const VerticalResultsPage = ({
 
   let [searchParams, setSearchParams] = useSearchParams();
 
+  const facets = useSearchState((state) => state.filters.facets);
+
   const handleSearch = (searchEventData: {
     verticalKey?: string;
     query?: string;
@@ -49,12 +53,19 @@ const VerticalResultsPage = ({
       <NavBar />
       <SpellCheck />
       <ResultsCount />
-      <VerticalResults
-        CardComponent={Card}
-        customCssClasses={{
-          verticalResultsContainer: gridLayout ? "grid-container" : "",
-        }}
-      />
+      <div className={facets && facets.length > 0 ? "flex-container" : ""}>
+        {facets && facets.length > 0 && (
+          <div className="facets-container">
+            <StandardFacets />
+          </div>
+        )}
+        <VerticalResults
+          CardComponent={Card}
+          customCssClasses={{
+            verticalResultsContainer: gridLayout ? "grid-container" : "",
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -2,43 +2,73 @@ import "./index.css";
 import {
   ResultsCount,
   SearchBar,
-  SectionComponent,
-  SectionProps,
   SpellCheck,
-  StandardCard,
+  StandardFacets,
   UniversalResults,
+  VerticalResults,
 } from "@yext/search-ui-react";
 import ProductCard from "../product-card";
 import NavBar from "../nav-bar";
 import { usePageSetupEffect } from "../../hooks/usePageSetupEffect";
 import { useSearchParams } from "react-router-dom";
+import {
+  provideHeadless,
+  SearchHeadlessProvider,
+  useSearchActions,
+} from "@yext/search-headless-react";
+import Product from "../../types/products";
+import { useEffect, useState } from "react";
+import headlessConfig from "../../config/headlessConfig";
 
-const GridSection: SectionComponent = ({
-  results,
-  CardComponent,
-}: SectionProps): JSX.Element => {
-  const SectionCard = CardComponent ?? StandardCard;
+const universalSearcher = provideHeadless({
+  ...headlessConfig,
+  headlessId: "universal-searcher",
+});
+
+interface UniversalSearchProps {
+  query?: string;
+}
+
+const UniversalSearch = ({ query }: UniversalSearchProps) => {
+  const searchActions = useSearchActions();
+
+  useEffect(() => {
+    searchActions.setQuery(query || "");
+    searchActions.executeUniversalQuery();
+  }, [query]);
 
   return (
-    <div className="grid-container">
-      {results.map((result) => (
-        <SectionCard result={result} />
-      ))}
-    </div>
+    <UniversalResults
+      customCssClasses={{
+        universalResultsContainer: "universal-results-container",
+        universalResultsLoading: "hidden",
+      }}
+      verticalConfigMap={{
+        collection: { label: "Collections" },
+        product_category: { label: "Categories" },
+        products: {
+          SectionComponent: () => <></>,
+        },
+      }}
+    />
   );
 };
 
 const UniversalSearchPage = (): JSX.Element => {
-  usePageSetupEffect();
+  usePageSetupEffect("products");
 
   let [searchParams, setSearchParams] = useSearchParams();
+  const [universalQuery, setUniversalQuery] = useState("");
+
+  useEffect(() => {
+    setUniversalQuery(searchParams.get("query") || "");
+  }, [searchParams]);
 
   const handleSearch = (searchEventData: {
     verticalKey?: string;
     query?: string;
   }) => {
     const { query } = searchEventData;
-    debugger;
     if (query) {
       searchParams.set("query", query);
     } else {
@@ -47,6 +77,7 @@ const UniversalSearchPage = (): JSX.Element => {
 
     setSearchParams(searchParams);
   };
+
   return (
     <div className="search-container">
       <SearchBar
@@ -56,17 +87,20 @@ const UniversalSearchPage = (): JSX.Element => {
       <NavBar />
       <SpellCheck />
       <ResultsCount />
-      <UniversalResults
-        verticalConfigMap={{
-          products: {
-            CardComponent: ProductCard,
-            label: "Products",
-            SectionComponent: GridSection,
-          },
-          collection: { label: "Collections" },
-          product_category: { label: "Categories" },
-        }}
-      />
+      <div className="flex-container">
+        <div className="facets-container">
+          <StandardFacets />
+        </div>
+        <VerticalResults<Product>
+          CardComponent={ProductCard}
+          customCssClasses={{
+            verticalResultsContainer: "grid-container",
+          }}
+        />
+      </div>
+      <SearchHeadlessProvider searcher={universalSearcher}>
+        <UniversalSearch query={universalQuery} />
+      </SearchHeadlessProvider>
     </div>
   );
 };

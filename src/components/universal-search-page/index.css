@@ -12,3 +12,26 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
 }
+
+/* convert this tailwind to a css class: mr-5 w-56 shrink-0 */
+.facets-container {
+  margin-right: 1.25rem;
+  width: 14rem;
+  flex-shrink: 0;
+}
+
+/* convert this tailwind to a css class: flex */
+.flex-container {
+  display: flex;
+}
+
+/* convert this tailwind to a css class: py-8 */
+.universal-results-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* convert this tailwind to a css class: hidden */
+.hidden {
+  display: none;
+}
