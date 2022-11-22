@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { routeConfig } from "../../PageRouter";
 import "./index.css";
 import { v4 as uuid } from "uuid";
@@ -9,7 +8,7 @@ const NavBar = () => {
     <nav className="nav-bar">
       {routeConfig.map((route) => (
         <>
-          <LinkWithQuery className="link" key={uuid()} to={route.path}>
+          <LinkWithQuery key={uuid()} to={route.path}>
             {route.label}
           </LinkWithQuery>
         </>

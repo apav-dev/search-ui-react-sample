@@ -12,22 +12,22 @@ import { useSearchParams } from "react-router-dom";
 import { usePageSetupEffect } from "../../hooks/usePageSetupEffect";
 import NavBar from "../nav-bar";
 
-interface VerticalResultsPageProps {
+interface VerticalResultsPageProps<T> {
   verticalKey: string;
   searchBarPlaceholder?: string;
-  CardComponent?: CardComponent;
+  CardComponent?: CardComponent<T>;
   gridLayout?: boolean;
 }
 
-const VerticalResultsPage = ({
+const VerticalResultsPage = <T,>({
   verticalKey,
   searchBarPlaceholder,
   CardComponent,
   gridLayout,
-}: VerticalResultsPageProps) => {
+}: VerticalResultsPageProps<T>) => {
   usePageSetupEffect(verticalKey);
 
-  const Card = CardComponent ?? StandardCard;
+  const Card = CardComponent ?? (StandardCard as CardComponent<T>);
 
   let [searchParams, setSearchParams] = useSearchParams();
 
